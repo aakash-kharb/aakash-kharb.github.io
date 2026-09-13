@@ -1,0 +1,87 @@
+:root {
+  color-scheme: light dark;
+  --sans: "Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono: ui-monospace,"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+  --header-h: 4rem;
+
+  /* Fluid type scale. Floor is 0.75rem = 12px: nothing on this
+     page is allowed to render smaller, at any viewport. Every
+     step interpolates between a 360px phone and a 1600px display,
+     so type adapts without a single media query. */
+  --fs-2xs:  clamp(0.75rem,   0.7350rem + 0.075vw, 0.8125rem);
+  --fs-xs:   clamp(0.8125rem, 0.7950rem + 0.090vw, 0.875rem);
+  --fs-sm:   clamp(0.875rem,  0.8550rem + 0.100vw, 0.9375rem);
+  --fs-md:   clamp(0.9375rem, 0.9150rem + 0.110vw, 1rem);
+  --fs-base: clamp(1rem,      0.9700rem + 0.150vw, 1.0625rem);
+  --fs-lg:   clamp(1.0625rem, 1.0100rem + 0.280vw, 1.1875rem);
+  --fs-xl:   clamp(1.15rem,   1.0400rem + 0.550vw, 1.5rem);
+  --fs-2xl:  clamp(1.35rem,   1.1300rem + 1.100vw, 2.35rem);
+  --frame: min(calc(100% - clamp(3rem,16vw,16rem)),82rem);
+  --pad: clamp(1.25rem,4vw,4.5rem);
+  --section: clamp(5rem,9vw,9rem);
+  --hairline: .5px;
+  --ease: cubic-bezier(.22,1,.36,1);
+  --dur-fast: 140ms;
+  --dur: 280ms;
+  --dur-layout: 480ms;
+  --z-header: 30;
+  --z-toast: 60;
+
+  /* The contact panel stays dark in both themes, so its foreground
+     cannot ride on --ink-*, which flips. These are fixed, and both
+     clear 4.5:1 against that panel. */
+  --on-dark-bg:     #111412;
+  --on-dark:        #eff3f0;
+  --on-dark-mute:   #9da59f;
+  --on-dark-mute-2: #868f89;
+  --on-dark-line:   #424a45;
+  --on-dark-accent: #9ac4e9;
+  --error:          #d76a50;
+}
+:root[data-theme=light] { color-scheme: light; }
+:root[data-theme=dark] { color-scheme: dark; }
+
+:root[data-skin=academic] {
+  --outer: light-dark(#eceeea,#0c0e0d);
+  --canvas: light-dark(#f7f8f5,#111412);
+  --paper: light-dark(#fcfdfb,#171a18);
+  --surface: light-dark(#f1f3ef,#1b201d);
+  --ink: light-dark(#161816,#eef2ef);
+  --ink-2: light-dark(#555b57,#b3bbb6);
+  --ink-3: light-dark(#6b726d,#848d87);
+  --line: light-dark(#9ba29d,#3e4742);
+  --line-soft: light-dark(#d5d9d6,#2a302d);
+  --edge: light-dark(rgba(36,42,38,.32),rgba(186,198,191,.2));
+  --accent: light-dark(#336da8,#8ab8e5);
+  --accent-soft: light-dark(#dce9f3,#1e3040);
+  --mint-soft: light-dark(#e4eee6,#1d2d22);
+  --selection: light-dark(#c6dcf0,#355473);
+}
+
+:root[data-skin=terminal] {
+  --outer: light-dark(#e9eae6,#0b0d0c);
+  --canvas: light-dark(#f1f1ed,#101211);
+  --paper: light-dark(#fafaf7,#151817);
+  --surface: light-dark(#e7e8e3,#1c201e);
+  --ink: light-dark(#171a19,#e2e8e4);
+  --ink-2: light-dark(#4d5551,#aebbb4);
+  --ink-3: light-dark(#6a716d,#828c86);
+  --line: light-dark(#777e7a,#58625d);
+  --line-soft: light-dark(#c9cecb,#2d3430);
+  --edge: light-dark(rgba(36,42,38,.32),rgba(186,198,191,.2));
+  --accent: light-dark(#2457d6,#83a2ff);
+  --accent-soft: light-dark(#d7dff5,#26345c);
+  --mint-soft: light-dark(#dbe7df,#203d2a);
+  --selection: light-dark(#c7d5ff,#30477f);
+}
+
+@media (max-width:48rem) {
+  :root { --frame: calc(100% - 1.5rem); --pad: clamp(1rem,5vw,1.5rem); }
+}
+
+@supports not (color:light-dark(#000,#fff)) {
+  :root[data-skin=academic] { --outer:#eceeea;--canvas:#f7f8f5;--paper:#fcfdfb;--surface:#f1f3ef;--ink:#161816;--ink-2:#555b57;--ink-3:#6b726d;--line:#9ba29d;--line-soft:#d5d9d6;--edge:rgba(36,42,38,.32);--accent:#336da8;--accent-soft:#dce9f3;--mint-soft:#e4eee6;--selection:#c6dcf0; }
+  :root[data-skin=academic][data-theme=dark] { --outer:#0c0e0d;--canvas:#111412;--paper:#171a18;--surface:#1b201d;--ink:#eef2ef;--ink-2:#b3bbb6;--ink-3:#848d87;--line:#3e4742;--line-soft:#2a302d;--edge:rgba(186,198,191,.2);--accent:#8ab8e5;--accent-soft:#1e3040;--mint-soft:#1d2d22;--selection:#355473; }
+  :root[data-skin=terminal] { --outer:#e9eae6;--canvas:#f1f1ed;--paper:#fafaf7;--surface:#e7e8e3;--ink:#171a19;--ink-2:#4d5551;--ink-3:#6a716d;--line:#777e7a;--line-soft:#c9cecb;--edge:rgba(36,42,38,.32);--accent:#2457d6;--accent-soft:#d7dff5;--mint-soft:#dbe7df;--selection:#c7d5ff; }
+  :root[data-skin=terminal][data-theme=dark] { --outer:#0b0d0c;--canvas:#101211;--paper:#151817;--surface:#1c201e;--ink:#e2e8e4;--ink-2:#aebbb4;--ink-3:#828c86;--line:#58625d;--line-soft:#2d3430;--edge:rgba(186,198,191,.2);--accent:#83a2ff;--accent-soft:#26345c;--mint-soft:#203d2a;--selection:#30477f; }
+}
